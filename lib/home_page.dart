@@ -15,6 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   String apikey = '';
   double lat = 43.6610277;
   double lon = -70.2548596;
@@ -34,12 +36,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      key: scaffoldKey,
       backgroundColor: const Color.fromARGB(255, 52, 76, 100),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 36, 7, 80),
         foregroundColor: Colors.white,
         title: const Text('Weather App'),
+        leading: IconButton(
+          onPressed: () {
+            if(scaffoldKey.currentState!.isDrawerOpen){
+              scaffoldKey.currentState!.closeDrawer();
+            }else{
+              scaffoldKey.currentState!.openDrawer();
+            }
+          },
+          icon: const Icon(Icons.menu)
+        )
       ),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(255, 52, 76, 100),
