@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               scaffoldKey.currentState!.openDrawer();
             }
           },
-          icon: const Icon(Icons.menu)
+          icon: Tab(icon: Image.asset("assets/images/menu.png"))
         )
       ),
       drawer: Drawer(
