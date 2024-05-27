@@ -1,0 +1,49 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/nuget-populate"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/1a98102c316499d3f98a876634e3a7c2/nuget-populate.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/4ff0c3a5e641e7a9c30f20d0afe188e3/nuget-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-copyfile.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/liama/final project/weather_app/build/windows/x64/_deps/nuget-subbuild/CMakeFiles/0e7e9e968df14aadbba32ca6b0bff422/nuget-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"nuget-populate"
+		],
+		"name" : "nuget-populate"
+	}
+}

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-copyfile.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\0e7e9e968df14aadbba32ca6b0bff422\nuget-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\4ff0c3a5e641e7a9c30f20d0afe188e3\nuget-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\1a98102c316499d3f98a876634e3a7c2\nuget-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\liama\final project\weather_app\build\windows\x64\_deps\nuget-subbuild\CMakeFiles\nuget-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{2557D319-6D7E-3670-9DF2-E5E75581482E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
