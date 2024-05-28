@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-
+  List favcities = List.generate(10, (i) => i);
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String apikey = '';
   double lat = 43.6610277;
@@ -55,110 +55,146 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(255, 52, 76, 100),
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 36, 7, 80)
-              ),
-              child: Center(
-                child: Text(
-                  style: TextStyle(
-                    fontSize: 50.0,
-                    color: Colors.white
-                  ),
-                  'City Selection'
-                )
-              )
-            ),
-            ListBody(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 5.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: ListView(
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 36, 7, 80)
+                ),
+                child: Center(
                   child: Text(
-                    'Current city: $curCity',
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black
+                    style: TextStyle(
+                      fontSize: 50.0,
+                      color: Colors.white
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 20.0),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('Enter A City In City, State, Country Format', style: TextStyle(fontSize: 15.0, color: Colors.black),)
-                    ),
-                    style: const TextStyle(fontSize: 20.0, color: Colors.black),
-                    controller: cityController,
-                  )
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
-                  child: FilledButton(
-                    onPressed: () {
-                      returncityval();
-                      setState(() {
-                        curCity = cityController.text;
-                      });
-                      cityController.clear();
-                    },
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 87, 166, 161),
-                      foregroundColor: Colors.black
-                    ),
-                    child: const Text('Set City'),
-                  )
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 20.0),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('Enter Your API Key', style: TextStyle(color: Colors.black),)
-                    ),
-                    style: const TextStyle(fontSize: 20.0, color: Colors.black),
-                    controller: apiController,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
-                  child: FilledButton(
-                    onPressed: () {
-                      setState(() {
-                        apikey = apiController.text;
-                      });
-                      apiController.clear();
-                    },
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 87, 166, 161),
-                      foregroundColor: Colors.black
-                    ),
-                    child: const Text('Set API Key'),
-                  )
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 5.0),
-                  child: FilledButton(
-                    onPressed: () => setState(() {
-                      futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
-                      Navigator.pop(context);
-                    }),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 87, 166, 161),
-                      foregroundColor: Colors.black
-                    ),
-                    child: const Text('Refresh Weather'),
+                    'City Selection'
                   )
                 )
+              ),
+              ListBody(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 5.0),
+                    child: Text(
+                      'Current city: $curCity',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 20.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        label: Text('Enter A City In City, State, Country Format', style: TextStyle(fontSize: 15.0, color: Colors.black),)
+                      ),
+                      style: const TextStyle(fontSize: 20.0, color: Colors.black),
+                      controller: cityController,
+                    )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
+                    child: FilledButton(
+                      onPressed: () {
+                        returncityval();
+                        setState(() {
+                          curCity = cityController.text;
+                        });
+                        cityController.clear();
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 87, 166, 161),
+                        foregroundColor: Colors.black
+                      ),
+                      child: const Text('Set City'),
+                    )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
+                    child: FilledButton(
+                      onPressed: () {
+                        returncityval();
+                        setState(() {
+                          favcities.add(cityController.text);
+                        });
+                        cityController.clear();
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 87, 166, 161),
+                        foregroundColor: Colors.black
+                      ),
+                      child: const Text('Add As Favourite'),
+                    )
+                  ),
+                  ListView.builder(
+                    itemCount: favcities.length,
+                    itemBuilder: (context, index) {
+                      final item = favcities[index];
+                      return ListTile(
+                        title: Text('$item'),
+                        onTap: () {
+                          returncityval();
+                          setState(() {
+                            curCity = cityController.text;
+                          });
+                          cityController.clear();
+                        }
+                      );
+                    }
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 20.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        label: Text('Enter Your API Key', style: TextStyle(color: Colors.black),)
+                      ),
+                      style: const TextStyle(fontSize: 20.0, color: Colors.black),
+                      controller: apiController,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
+                    child: FilledButton(
+                      onPressed: () {
+                        setState(() {
+                          apikey = apiController.text;
+                        });
+                        apiController.clear();
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 87, 166, 161),
+                        foregroundColor: Colors.black
+                      ),
+                      child: const Text('Set API Key'),
+                    )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 5.0),
+                    child: FilledButton(
+                      onPressed: () => setState(() {
+                        futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                        Navigator.pop(context);
+                      }),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 87, 166, 161),
+                        foregroundColor: Colors.black
+                      ),
+                      child: const Text('Refresh Weather'),
+                    )
+                  )
+                    
                   
-                
-              ],
-            )
-          ],
-        ),
-    ),
+                ],
+              )
+            ],
+          ),
+        )
+      ),
       body: GridView.count(
         padding: const EdgeInsets.all(20.0),
         crossAxisSpacing: 20.0,
