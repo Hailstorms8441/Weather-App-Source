@@ -15,9 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List favcities = ["Portland,ME,US"];
-  List numlist = [1,2,3,4,5];
-  double size = numlist.length.toDouble();
+  List<String> favcities = ["Portland,ME,US"];
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String apikey = '';
   double lat = 43.6610277;
@@ -97,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
+                  padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 10.0),
                   child: FilledButton(
                     onPressed: () {
                       returncityval(cityController.text);
@@ -114,11 +112,12 @@ class _HomePageState extends State<HomePage> {
                   )
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 25.0),
+                  padding: const EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 10.0),
                   child: FilledButton(
                     onPressed: () {
                       returncityval(cityController.text);
                       setState(() {
+                        curCity = cityController.text;
                         favcities.add(cityController.text);
                       });
                       cityController.clear();
@@ -130,14 +129,32 @@ class _HomePageState extends State<HomePage> {
                     child: const Text('Add As Favourite'),
                   )
                 ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0, bottom: 10.0),
+                  child: Text(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0
+                    ),
+                    'Favourites:'
+                  ),
+                ),
+                const Divider(
+                  color: Colors.black,
+                ),
                 SizedBox(
-                  height: 500.0,
+                  height: favcities.length.toDouble() * 50.0,
                   child: ListView.builder(
                     itemCount: favcities.length,
                     itemBuilder: (context, index) {
                       final item = favcities[index];
                       return ListTile(
-                        title: Text('$item'),
+                        title: Text(
+                          style: const TextStyle(
+                            color: Colors.black
+                          ),
+                          item
+                        ),
                         onTap: () {
                           returncityval(item);
                           setState(() {
@@ -147,6 +164,19 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                   )
+                ),
+                const Divider(
+                  color: Colors.black,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0, bottom: 20.0),
+                  child: Text(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0
+                    ),
+                    'pi Key:'
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0, bottom: 20.0),
@@ -172,7 +202,9 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: const Color.fromARGB(255, 87, 166, 161),
                       foregroundColor: Colors.black
                     ),
-                    child: const Text('Set API Key'),
+                    child: const Text(
+                      'Set API Key'
+                    ),
                   )
                 ),
                 Padding(
