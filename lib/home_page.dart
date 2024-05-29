@@ -16,6 +16,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   List favcities = ["Portland,ME,US"];
+  List numlist = [1,2,3,4,5];
+  double size = numlist.length.toDouble();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String apikey = '';
   double lat = 43.6610277;
