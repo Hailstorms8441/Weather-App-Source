@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/weather_service.dart';
 import 'package:weather_app/current_block.dart';
-import 'package:weather_app/red.dart';
+import 'package:weather_app/Graphs.dart';
 import 'package:weather_app/yellow.dart';
 import 'package:weather_app/blue.dart';
 import 'package:dio/dio.dart';
