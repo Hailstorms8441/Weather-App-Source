@@ -1,6 +1,6 @@
 # Weather App
 
-All of the files that actually are for the app are in lib
+A weather app that pulls data from Openweather and displays it with the Flutter UI framework
 
 # How to set up the app on your machine:
 
