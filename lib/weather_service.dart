@@ -39,12 +39,38 @@ class CloudData {
   }
 }
 
+class Otherweatherdesc {
+  final String desc;
+
+  const Otherweatherdesc({
+    required this.desc
+  });
+
+  factory Otherweatherdesc.fromJson(Map<String, dynamic> json) {
+    return Otherweatherdesc(desc: json["description"]);
+  }
+}
+
+class WeatherDesc {
+  final String desc;
+
+  const WeatherDesc({
+    required this.desc
+  });
+
+  factory WeatherDesc.fromJson(Map<String, dynamic> json) {
+    return WeatherDesc(desc: json['description']);
+  }
+}
+
 class WeatherData {
   final CurrentData current;
   final WindData winddata;
   final CloudData clouddata;
+  final WeatherDesc weatherdesc;
 
   const WeatherData({
+    required this.weatherdesc,
     required this.current,
     required this.winddata,
     required this.clouddata
@@ -54,7 +80,8 @@ class WeatherData {
     return WeatherData(
       current: CurrentData.fromJson(json['main']),
       winddata: WindData.fromJson(json['wind']),
-      clouddata: CloudData.fromJson(json['clouds'])
+      clouddata: CloudData.fromJson(json['clouds']),
+      weatherdesc: WeatherDesc.fromJson(json['weather'][0])
     );
   }
 }
