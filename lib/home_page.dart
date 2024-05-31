@@ -6,6 +6,7 @@ import 'package:weather_app/yellow.dart';
 import 'package:weather_app/blue.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_app/forcast_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,8 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   bool canopen = true;
   String keyIsFirstLoaded = '';
   List<String> favcities = ["Portland,ME,US"];
@@ -26,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   double lon = -70.2548596;
   String curCity = 'Portland,ME,US';
   late Future<WeatherData> futureWeather;
+  late Future<ForcastData> futureForcast;
   final cityController = TextEditingController();
   final apiController = TextEditingController();
 
@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       keyIsFirstLoaded = 'is_first_loaded';
       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
     });
   }
 
@@ -216,7 +217,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSpacing: 20.0,
         crossAxisCount: 2,
         childAspectRatio: (2.24/1),
-        children: [CurrentBlock(weatherData: futureWeather), const Graphs(), const Blue(), const Yellow()],)//Column(
+        children: [CurrentBlock(weatherData: futureWeather), Graphs(forcastData: futureForcast), const Blue(), const Yellow()],)//Column(
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+//import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:weather_app/forcast_service.dart';
 
 class Graphs extends StatelessWidget {
@@ -9,7 +8,7 @@ class Graphs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TooltipBehavior _tooltipBehavior;
+    //TooltipBehavior _tooltipBehavior;
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 87, 123, 141),
@@ -19,7 +18,11 @@ class Graphs extends StatelessWidget {
         if (snapshot.hasData) {
           return Column(
             children: [
-              Text(style: const TextStyle(fontSize: 39), "Current Temp: ${snapshot.data!.list[0].main.temp.toInt()}° F")
+              Text(style: const TextStyle(fontSize: 39), "Current Temp: ${snapshot.data!.list[0].main.temp.toInt()}° F"),
+              Text(style: const TextStyle(fontSize: 39), "Current Temp: ${snapshot.data!.list[1].main.temp.toInt()}° F"),
+              Text(style: const TextStyle(fontSize: 39), "Current Temp: ${snapshot.data!.list[2].main.temp.toInt()}° F"),
+              Text(style: const TextStyle(fontSize: 39), "Current Temp: ${snapshot.data!.list[3].main.temp.toInt()}° F"),
+              Text(style: const TextStyle(fontSize: 39), "Current Temp: ${snapshot.data!.list[4].main.temp.toInt()}° F")
             ],
           );
         } else if (snapshot.hasError) {

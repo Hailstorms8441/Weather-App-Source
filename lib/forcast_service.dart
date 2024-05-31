@@ -52,7 +52,7 @@ class ForcastData {
 class ForcastService {
   Future<ForcastData> getData(String lon, String lat, String apikey) async {
     final response = await http
-        .get(Uri.parse('api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apikey'));  
+        .get(Uri.parse('https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apikey')); 
     if (response.statusCode == 200) {
       return ForcastData.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     } else {
