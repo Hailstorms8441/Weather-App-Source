@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSpacing: 20.0,
         crossAxisCount: 2,
         childAspectRatio: (2.24/1),
-        children: [CurrentBlock(weatherData: futureWeather), const Red(), const Blue(), const Yellow()],)//Column(
+        children: [CurrentBlock(weatherData: futureWeather), const Graphs(), const Blue(), const Yellow()],)//Column(
     );
   }
 
