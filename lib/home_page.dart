@@ -3,7 +3,6 @@ import 'package:weather_app/weather_service.dart';
 import 'package:weather_app/current_block.dart';
 import 'package:weather_app/graphs.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/forcast_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context));
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color.fromARGB(255, 52, 76, 100),
@@ -196,7 +194,8 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0, bottom: 5.0),
                   child: FilledButton(
                     onPressed: () {
-                      showDialogIfLoaded(context);
+                      Navigator.pop(context);
+                      showDialogIfFirstLoaded(context);
                     },
                     style: FilledButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 87, 166, 161),
@@ -204,6 +203,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: const Text('Set Api Key'),
                   )
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0, bottom: 5.0),
+                  child: Text(style: TextStyle(fontSize: 25), "Powered By:"),
+                ),
+                Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0, bottom: 5.0),
+                 child: Image.asset('assets/images/openweather.png', height: 90.0, width: 90.0,)
                 )
               ],
             )
@@ -234,122 +241,55 @@ class _HomePageState extends State<HomePage> {
   }
   
   showDialogIfFirstLoaded(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isFirstLoaded = prefs.getBool(keyIsFirstLoaded);
-    prefs.setBool(keyIsFirstLoaded, true);
-    if (isFirstLoaded == true && canopen == true) {
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            title: const Text("Enter your API key here:"),
-            backgroundColor: const Color.fromARGB(255, 52, 76, 100),
-            content:TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text(
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 20, 20, 20)
-                  ),
-                  'Make sure you input the correct key'
-                )
-              ),
-              style: const TextStyle(fontSize: 20.0, color: Colors.black),
-              controller: apiController,
-            ),
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              ElevatedButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 87, 166, 161),
-                  foregroundColor: Colors.black
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: const Text("Enter your API key here:"),
+          backgroundColor: const Color.fromARGB(255, 52, 76, 100),
+          content:TextField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text(
+                style: TextStyle(
+                  color: Color.fromARGB(255, 20, 20, 20)
                 ),
-                onPressed: () {
-                  if (apiController.text == '') {
-
-                  } else {
-                  // Close the dialog
-                    setState(() {
-                      apikey = apiController.text;
-                    });
-                    setState(() {
-                      futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
-                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
-                    });
-                    apiController.clear();
-                    Navigator.of(context).pop();
-                    prefs.setBool(keyIsFirstLoaded, false);
-                    canopen = false;
-                  }
-                },
-                child: const Text("Set And Close"),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  showDialogIfLoaded(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isFirstLoaded = prefs.getBool(keyIsFirstLoaded);
-    prefs.setBool(keyIsFirstLoaded, true);
-    if (isFirstLoaded == true) {
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            title: const Text("Enter your API key here:"),
-            backgroundColor: const Color.fromARGB(255, 52, 76, 100),
-            content:TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text(
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 20, 20, 20)
-                  ),
-                  'Make sure you input the correct key'
-                )
-              ),
-              style: const TextStyle(fontSize: 20.0, color: Colors.black),
-              controller: apiController,
+                'Make sure you input the correct key'
+              )
             ),
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              ElevatedButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 87, 166, 161),
-                  foregroundColor: Colors.black
-                ),
-                onPressed: () {
-                  if (apiController.text == '') {
-
-                  } else {
-                  // Close the dialog
-                    setState(() {
-                      apikey = apiController.text;
-                    });
-                    setState(() {
-                      futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
-                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
-                    });
-                    apiController.clear();
-                    Navigator.of(context).pop();
-                    prefs.setBool(keyIsFirstLoaded, false);
-                    canopen = false;
-                  }
-                },
-                child: const Text("Set And Close"),
+            style: const TextStyle(fontSize: 20.0, color: Colors.black),
+            controller: apiController,
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            ElevatedButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 87, 166, 161),
+                foregroundColor: Colors.black
               ),
-            ],
-          );
-        },
-      );
-    }
+              onPressed: () {
+                if (apiController.text == '') {
+
+                } else {
+                // Close the dialog
+                  setState(() {
+                    apikey = apiController.text;
+                  });
+                  setState(() {
+                    futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                    futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
+                  });
+                  apiController.clear();
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text("Set And Close"),
+            ),
+          ],
+        );
+      }
+    );
   }
 }

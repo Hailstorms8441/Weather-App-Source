@@ -30,15 +30,17 @@ class ForcastElement {
   final MainForcast main;
   final WindForcast wind;
   final String time;
+  final double pop;
 
   const ForcastElement({
+    required this.pop,
     required this.main,
     required this.time,
     required this.wind
   });
 
   factory ForcastElement.fromJson(Map <String, dynamic> json) {
-    return ForcastElement(main: MainForcast.fromJson(json['main']), time: unixtotime(json['dt']), wind: WindForcast.fromJson(json['wind']));
+    return ForcastElement(main: MainForcast.fromJson(json['main']), time: unixtotime(json['dt']), wind: WindForcast.fromJson(json['wind']), pop: json['pop'] * 100);
   }
 
 

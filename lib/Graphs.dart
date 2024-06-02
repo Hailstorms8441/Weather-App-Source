@@ -21,7 +21,7 @@ class _GraphsState extends State<Graphs> {
   @override
   Widget build(BuildContext context) {
     List<FutureData> tempdata = []; 
-    List<FutureData> winddata = [];
+    List<FutureData> raindata = [];
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 87, 123, 141),
@@ -30,9 +30,9 @@ class _GraphsState extends State<Graphs> {
       child: FutureBuilder<ForcastData>(future: widget.forcastData, builder: (context, snapshot) {
         if (snapshot.hasData) {
           tempdata = [];
-          winddata = [];
+          raindata = [];
           for (var i = 0; i < 40; i++) {
-            winddata.add(FutureData(snapshot.data!.list[i].time.toString(), snapshot.data!.list[i].wind.speed));
+            raindata.add(FutureData(snapshot.data!.list[i].time.toString(), snapshot.data!.list[i].pop.toInt()));
           }
           for (var i = 0; i < 40; i++) {
             tempdata.add(FutureData(snapshot.data!.list[i].time.toString(), snapshot.data!.list[i].main.temp));
@@ -40,7 +40,7 @@ class _GraphsState extends State<Graphs> {
           return Center(
             child: Column(
               children: [
-                const Text('5 Day Forcast:', style: TextStyle(fontSize: 50.0),),
+                const Text('5 Day Forcast:', style: TextStyle(fontSize: 50.0, decoration: TextDecoration.underline)),
                 SizedBox(
                   width: 800.0,
                   height: 299.0,
@@ -104,6 +104,7 @@ class _GraphsState extends State<Graphs> {
                   height: 299.0,
                   child: SfCartesianChart(
 
+                    isTransposed: true,
                     plotAreaBorderColor: Colors.black,
 
                     title: const ChartTitle(
@@ -111,7 +112,7 @@ class _GraphsState extends State<Graphs> {
                         color: Colors.black,
                         decoration: TextDecoration.underline
                       ),
-                      text: "Wind Speed:"
+                      text: "Precipitation Chance: "
                     ),
                   
                     primaryXAxis: const CategoryAxis(
@@ -127,6 +128,7 @@ class _GraphsState extends State<Graphs> {
                       majorGridLines: MajorGridLines(color: Colors.black),
                       majorTickLines: MajorTickLines(color: Colors.black),
                       labelStyle: TextStyle(color: Colors.black),
+                      maximum: 100.0,
                     ),
                     // Enable legend
                     legend: const Legend(
@@ -142,15 +144,16 @@ class _GraphsState extends State<Graphs> {
                       lineColor: const Color.fromARGB(255, 30, 30, 30),
                       tooltipSettings: const InteractiveTooltip(
                         enable: true,
-                        format: 'point.x : point.y mph',
+                        format: 'point.x : point.y%',
                         color: Color.fromARGB(255, 30, 30, 30)
                       ),
                     ),
-                    series: <LineSeries<FutureData, String>>[
-                      LineSeries<FutureData, String>(
-                        color: Colors.green,
-                        name: 'Wind in mph',
-                        dataSource:  winddata,
+
+                    series: <BarSeries<FutureData, String>>[
+                      BarSeries<FutureData, String>(
+                        color: Colors.blue,
+                        name: 'Precipitation %',
+                        dataSource:  raindata,
                         xValueMapper: (FutureData data1, _) => data1.date,
                         yValueMapper: (FutureData data1, _) => data1.value,
                       ),
