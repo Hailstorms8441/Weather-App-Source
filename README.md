@@ -1,14 +1,15 @@
 # Weather App
 
-A weather app that pulls data from Openweather and displays it with the Flutter UI framework
+A weather app that pulls data from Openweather and displays it with the Flutter UI framework.
+
+If you want to see the built code you can go to https://github.com/Hailstorm8441/Weather-App-Website/ and view it there (but it mostly looks like gibberish).
 
 # How to set up the app on your machine:
 
 Go to https://openweathermap.org/, create an acount, then go to pricing and click get api key under the free tier.
-Once you have generated the key you can download the zip file in releases (assuming that you are on windows) and unzip and run the exe
-After you have gotten in the app it should prompt you to input the api key, if it doesn't then just click the hamberger button and click set api key and enter it there.
-After you have entered the key you are all set and you can start messing around in the app.
 
-I also have built code to github pages and that can be found here: https://hailstorm8441.github.io/Weather-App-Website/
-It is currently not working, but will be once I finish this repo.
-When this does get working the app will be truely cross platform (exept for mobile)
+Once you have generated the key you can go to hailstorm8441/github.io/Weather-App-Website and use the app there.
+
+After you have gotten in the app click on the hamburger and click set api and enter your key in the popup.
+
+After you have entered the key you are all set and you can start messing around in the app.
