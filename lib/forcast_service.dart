@@ -1,26 +1,29 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class MainForcast {
-  final double temp;
+  final int temp;
 
   const MainForcast({
     required this.temp
   });
   factory MainForcast.fromJson(Map <String, dynamic> json){
-    return MainForcast(temp: json['temp']);
+    return MainForcast(temp: json['temp'].toInt());
   }
 }
 
 class ForcastElement {
   final MainForcast main;
+  final String time;
 
   const ForcastElement({
-    required this.main
+    required this.main,
+    required this.time
   });
 
   factory ForcastElement.fromJson(Map <String, dynamic> json) {
-    return ForcastElement(main: json['main']);
+    return ForcastElement(main: MainForcast.fromJson(json['main']), time: unixtotime(json['dt']));
   }
 
 
@@ -35,15 +38,12 @@ class ForcastData {
   });
 
   factory ForcastData.fromJson(Map<String, dynamic> json) {
+    List<ForcastElement> forcastlist = [];
+    for (var i = 0; i < 40; i++) {
+      forcastlist.add(ForcastElement.fromJson(json['list'][i]));
+    }
     return ForcastData(
-      list: 
-      [
-        ForcastElement.fromJson(json['list'][0]),
-        ForcastElement.fromJson(json['list'][1]),
-        ForcastElement.fromJson(json['list'][2]),
-        ForcastElement.fromJson(json['list'][3]),
-        ForcastElement.fromJson(json['list'][4]),
-      ]
+      list: forcastlist
     );
   }
 }
@@ -52,7 +52,7 @@ class ForcastData {
 class ForcastService {
   Future<ForcastData> getData(String lon, String lat, String apikey) async {
     final response = await http
-        .get(Uri.parse('https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apikey')); 
+        .get(Uri.parse('https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=$lat&lon=$lon&appid=$apikey')); 
     if (response.statusCode == 200) {
       return ForcastData.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     } else {
@@ -61,4 +61,11 @@ class ForcastService {
   }
 
 
+}
+
+String unixtotime(int timestamp) {
+  String date1 = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000).toString();
+  //final dateFormat = DateFormat('h:mm a');
+  final stringFormat = DateFormat.MMMd().add_jm().format(DateTime.parse(date1));
+  return stringFormat;
 }

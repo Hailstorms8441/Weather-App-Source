@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/weather_service.dart';
 import 'package:weather_app/current_block.dart';
 import 'package:weather_app/graphs.dart';
-import 'package:weather_app/yellow.dart';
-import 'package:weather_app/blue.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/forcast_service.dart';
@@ -184,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                   child: FilledButton(
                     onPressed: () => setState(() {
                       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
                       Navigator.pop(context);
                     }),
                     style: FilledButton.styleFrom(
@@ -216,8 +215,8 @@ class _HomePageState extends State<HomePage> {
         crossAxisSpacing: 20.0,
         mainAxisSpacing: 20.0,
         crossAxisCount: 2,
-        childAspectRatio: (2.24/1),
-        children: [CurrentBlock(weatherData: futureWeather), Graphs(forcastData: futureForcast), const Blue(), const Yellow()],)//Column(
+        childAspectRatio: (1.1/1),
+        children: [CurrentBlock(weatherData: futureWeather), Graphs(forcastData: futureForcast),],)//Column(
     );
   }
 
@@ -277,6 +276,7 @@ class _HomePageState extends State<HomePage> {
                     });
                     setState(() {
                       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
                     });
                     apiController.clear();
                     Navigator.of(context).pop();
@@ -336,6 +336,7 @@ class _HomePageState extends State<HomePage> {
                     });
                     setState(() {
                       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
                     });
                     apiController.clear();
                     Navigator.of(context).pop();
