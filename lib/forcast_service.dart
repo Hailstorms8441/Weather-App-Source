@@ -4,26 +4,41 @@ import 'package:intl/intl.dart';
 
 class MainForcast {
   final int temp;
+  final int feelslike;
 
   const MainForcast({
-    required this.temp
+    required this.temp,
+    required this.feelslike
   });
   factory MainForcast.fromJson(Map <String, dynamic> json){
-    return MainForcast(temp: json['temp'].toInt());
+    return MainForcast(temp: json['temp'].toInt(), feelslike: json['feels_like'].toInt());
+  }
+}
+
+class WindForcast {
+  final int speed;
+
+  const WindForcast({
+    required this.speed,
+  });
+  factory WindForcast.fromJson(Map <String, dynamic> json){
+    return WindForcast(speed: json['speed'].toInt());
   }
 }
 
 class ForcastElement {
   final MainForcast main;
+  final WindForcast wind;
   final String time;
 
   const ForcastElement({
     required this.main,
-    required this.time
+    required this.time,
+    required this.wind
   });
 
   factory ForcastElement.fromJson(Map <String, dynamic> json) {
-    return ForcastElement(main: MainForcast.fromJson(json['main']), time: unixtotime(json['dt']));
+    return ForcastElement(main: MainForcast.fromJson(json['main']), time: unixtotime(json['dt']), wind: WindForcast.fromJson(json['wind']));
   }
 
 

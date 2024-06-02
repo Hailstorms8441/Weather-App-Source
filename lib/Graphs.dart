@@ -20,7 +20,8 @@ class _GraphsState extends State<Graphs> {
 
   @override
   Widget build(BuildContext context) {
-    List<FutureData> graphdata = []; 
+    List<FutureData> tempdata = []; 
+    List<FutureData> winddata = [];
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 87, 123, 141),
@@ -28,73 +29,135 @@ class _GraphsState extends State<Graphs> {
       ),
       child: FutureBuilder<ForcastData>(future: widget.forcastData, builder: (context, snapshot) {
         if (snapshot.hasData) {
-          graphdata = [];
+          tempdata = [];
+          winddata = [];
           for (var i = 0; i < 40; i++) {
-            graphdata.add(FutureData(snapshot.data!.list[i].time.toString(), snapshot.data!.list[i].main.temp));
+            winddata.add(FutureData(snapshot.data!.list[i].time.toString(), snapshot.data!.list[i].wind.speed));
+          }
+          for (var i = 0; i < 40; i++) {
+            tempdata.add(FutureData(snapshot.data!.list[i].time.toString(), snapshot.data!.list[i].main.temp));
           }
           return Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 5.0, bottom: 300.0, left: 5.0, right: 5.0),
-              child: SfCartesianChart(
-                
-                plotAreaBorderColor: Colors.black,
-                
-              
-                title: const ChartTitle(
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 35.0,
-                    decoration: TextDecoration.underline
-                  ),
-                  text: "5 Day Forcast:"
-                ),
-              
-                primaryXAxis: const CategoryAxis(
-                  axisLine: AxisLine(color: Colors.black),
-                  majorGridLines: MajorGridLines(color: Colors.black),
-                  majorTickLines: MajorTickLines(color: Colors.black),
-                  labelStyle: TextStyle(color: Colors.black),
-                  edgeLabelPlacement: EdgeLabelPlacement.shift,
-                ),
-              
-                primaryYAxis: const NumericAxis(
-                  axisLine: AxisLine(color: Colors.black),
-                  majorGridLines: MajorGridLines(color: Colors.black),
-                  majorTickLines: MajorTickLines(color: Colors.black),
-                  labelStyle: TextStyle(color: Colors.black),
-                ),
-                // Enable legend
-                legend: const Legend(
-                  isVisible: true,
-                  textStyle: TextStyle(color: Colors.black)
-                ),
-                
-                //tooltipBehavior: _tooltipBehavior,
-              
-                trackballBehavior: TrackballBehavior(
-                    // Enables the trackball
-                  enable: true,
-                  activationMode: ActivationMode.singleTap,
-                  lineWidth: 2.0,
-                  lineColor: const Color.fromARGB(255, 30, 30, 30),
-                  tooltipSettings: const InteractiveTooltip(
-                    enable: true,
-                    format: 'point.x : point.y ° F',
-                    color: Color.fromARGB(255, 30, 30, 30)
-                  ),
-                ),
-                series: <LineSeries<FutureData, String>>[
-                  LineSeries<FutureData, String>(
+            child: Column(
+              children: [
+                const Text('5 Day Forcast:', style: TextStyle(fontSize: 50.0),),
+                SizedBox(
+                  width: 800.0,
+                  height: 299.0,
+                  child: SfCartesianChart(
                     
-                    name: 'Temp in °F',
-                    dataSource:  graphdata,
-                    xValueMapper: (FutureData sales, _) => sales.date,
-                    yValueMapper: (FutureData sales, _) => sales.value,
-                    // Enable data label
-                    //dataLabelSettings: const DataLabelSettings(isVisible: false)
-                  )
-                ]
-              ),
+                    plotAreaBorderColor: Colors.black,
+                    
+                    title: const ChartTitle(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline
+                      ),
+                      text: "Temperature:"
+                    ),
+                  
+                    primaryXAxis: const CategoryAxis(
+                      axisLine: AxisLine(color: Colors.black),
+                      majorGridLines: MajorGridLines(color: Colors.black),
+                      majorTickLines: MajorTickLines(color: Colors.black),
+                      labelStyle: TextStyle(color: Colors.black),
+                      edgeLabelPlacement: EdgeLabelPlacement.shift,
+                    ),
+                  
+                    primaryYAxis: const NumericAxis(
+                      axisLine: AxisLine(color: Colors.black),
+                      majorGridLines: MajorGridLines(color: Colors.black),
+                      majorTickLines: MajorTickLines(color: Colors.black),
+                      labelStyle: TextStyle(color: Colors.black),
+                    ),
+                    // Enable legend
+                    legend: const Legend(
+                      isVisible: true,
+                      textStyle: TextStyle(color: Colors.black)
+                    ),
+                    
+                    trackballBehavior: TrackballBehavior(
+                        // Enables the trackball
+                      enable: true,
+                      activationMode: ActivationMode.singleTap,
+                      lineWidth: 2.0,
+                      lineColor: const Color.fromARGB(255, 30, 30, 30),
+                      tooltipSettings: const InteractiveTooltip(
+                        enable: true,
+                        format: 'point.x : point.y ° F',
+                        color: Color.fromARGB(255, 30, 30, 30)
+                      ),
+                    ),
+                    series: <LineSeries<FutureData, String>>[
+                      LineSeries<FutureData, String>(
+                        color: Colors.red,
+                        name: 'Temp in °F',
+                        dataSource:  tempdata,
+                        xValueMapper: (FutureData data1, _) => data1.date,
+                        yValueMapper: (FutureData data1, _) => data1.value,
+                      ),
+                    ]
+                  ),
+                ),
+                SizedBox(
+                  width: 800.0,
+                  height: 299.0,
+                  child: SfCartesianChart(
+
+                    plotAreaBorderColor: Colors.black,
+
+                    title: const ChartTitle(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline
+                      ),
+                      text: "Wind Speed:"
+                    ),
+                  
+                    primaryXAxis: const CategoryAxis(
+                      axisLine: AxisLine(color: Colors.black),
+                      majorGridLines: MajorGridLines(color: Colors.black),
+                      majorTickLines: MajorTickLines(color: Colors.black),
+                      labelStyle: TextStyle(color: Colors.black),
+                      edgeLabelPlacement: EdgeLabelPlacement.shift,
+                    ),
+                  
+                    primaryYAxis: const NumericAxis(
+                      axisLine: AxisLine(color: Colors.black),
+                      majorGridLines: MajorGridLines(color: Colors.black),
+                      majorTickLines: MajorTickLines(color: Colors.black),
+                      labelStyle: TextStyle(color: Colors.black),
+                    ),
+                    // Enable legend
+                    legend: const Legend(
+                      isVisible: true,
+                      textStyle: TextStyle(color: Colors.black)
+                    ),
+                    
+                    trackballBehavior: TrackballBehavior(
+                        // Enables the trackball
+                      enable: true,
+                      activationMode: ActivationMode.singleTap,
+                      lineWidth: 2.0,
+                      lineColor: const Color.fromARGB(255, 30, 30, 30),
+                      tooltipSettings: const InteractiveTooltip(
+                        enable: true,
+                        format: 'point.x : point.y mph',
+                        color: Color.fromARGB(255, 30, 30, 30)
+                      ),
+                    ),
+                    series: <LineSeries<FutureData, String>>[
+                      LineSeries<FutureData, String>(
+                        color: Colors.green,
+                        name: 'Wind in mph',
+                        dataSource:  winddata,
+                        xValueMapper: (FutureData data1, _) => data1.date,
+                        yValueMapper: (FutureData data1, _) => data1.value,
+                      ),
+                    ]
+                  ),
+                ),
+              ],
             ),
           );
         } else if (snapshot.hasError) {

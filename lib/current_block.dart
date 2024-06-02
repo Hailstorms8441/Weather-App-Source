@@ -24,6 +24,9 @@ class CurrentBlock extends StatelessWidget {
                   Text(style: const TextStyle(fontSize: 39), "Feels Like: ${snapshot.data!.current.feelslike.toInt()}"),
                   Text(style: const TextStyle(fontSize: 39), "Current Conditions: ${snapshot.data!.weatherdesc.desc}"),
                   Text(style: const TextStyle(fontSize: 39), "Wind Speed: ${snapshot.data!.winddata.speed.toInt()} MPH"),
+                  Text(style: const TextStyle(fontSize: 39), "Humidity: ${snapshot.data!.current.humidity.toInt()}%"),
+                  Text(style: const TextStyle(fontSize: 39), "Pressure: ${snapshot.data!.current.pressure.toInt()} hPa"),
+                  Text(style: const TextStyle(fontSize: 39), "Visibility: ${snapshot.data!.visibility.toInt()} km"),
                 ]);
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
