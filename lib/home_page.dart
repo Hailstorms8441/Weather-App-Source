@@ -230,7 +230,7 @@ class _HomePageState extends State<HomePage> {
   returncityval(incity) async{
     try {
       var response = await Dio()
-        .get('http://api.openweathermap.org/geo/1.0/direct?q=$incity&limit=1&appid=$apikey');
+        .get('https://api.openweathermap.org/geo/1.0/direct?q=$incity&limit=1&appid=$apikey');
       lat = response.data[0]['lat'];
       lon = response.data[0]['lon'];
       curCity = incity;
