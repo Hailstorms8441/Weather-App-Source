@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/weather_service.dart';
 import 'package:weather_app/current_block.dart';
-import 'package:weather_app/red.dart';
-import 'package:weather_app/yellow.dart';
-import 'package:weather_app/blue.dart';
+import 'package:weather_app/graphs.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_app/forcast_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,8 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   bool canopen = true;
   String keyIsFirstLoaded = '';
   List<String> favcities = ["Portland,ME,US"];
@@ -26,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   double lon = -70.2548596;
   String curCity = 'Portland,ME,US';
   late Future<WeatherData> futureWeather;
+  late Future<ForcastData> futureForcast;
   final cityController = TextEditingController();
   final apiController = TextEditingController();
 
@@ -35,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       keyIsFirstLoaded = 'is_first_loaded';
       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
     });
   }
 
@@ -183,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                   child: FilledButton(
                     onPressed: () => setState(() {
                       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
                       Navigator.pop(context);
                     }),
                     style: FilledButton.styleFrom(
@@ -215,8 +215,8 @@ class _HomePageState extends State<HomePage> {
         crossAxisSpacing: 20.0,
         mainAxisSpacing: 20.0,
         crossAxisCount: 2,
-        childAspectRatio: (2.24/1),
-        children: [CurrentBlock(weatherData: futureWeather), const Red(), const Blue(), const Yellow()],)//Column(
+        childAspectRatio: (1.1/1),
+        children: [CurrentBlock(weatherData: futureWeather), Graphs(forcastData: futureForcast),],)//Column(
     );
   }
 
@@ -276,6 +276,7 @@ class _HomePageState extends State<HomePage> {
                     });
                     setState(() {
                       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
                     });
                     apiController.clear();
                     Navigator.of(context).pop();
@@ -335,6 +336,7 @@ class _HomePageState extends State<HomePage> {
                     });
                     setState(() {
                       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+                      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
                     });
                     apiController.clear();
                     Navigator.of(context).pop();

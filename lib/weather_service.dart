@@ -4,14 +4,18 @@ import 'dart:convert';
 class CurrentData {
   final double temp;
   final double feelslike;
+  final double humidity;
+  final double pressure;
 
   const CurrentData({
     required this.temp,
-    required this.feelslike
+    required this.feelslike,
+    required this.humidity,
+    required this.pressure
   });
 
   factory CurrentData.fromJson(Map<String, dynamic> json) {
-    return CurrentData(temp: json['temp'], feelslike: json['feels_like']);
+    return CurrentData(temp: json['temp'], feelslike: json['feels_like'], humidity: json['humidity'], pressure: json['pressure']);
   }
 }
 
@@ -68,8 +72,10 @@ class WeatherData {
   final WindData winddata;
   final CloudData clouddata;
   final WeatherDesc weatherdesc;
+  final double visibility;
 
   const WeatherData({
+    required this.visibility,
     required this.weatherdesc,
     required this.current,
     required this.winddata,
@@ -78,6 +84,7 @@ class WeatherData {
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
     return WeatherData(
+      visibility: json['visibility'],
       current: CurrentData.fromJson(json['main']),
       winddata: WindData.fromJson(json['wind']),
       clouddata: CloudData.fromJson(json['clouds']),
