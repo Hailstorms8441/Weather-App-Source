@@ -4,6 +4,7 @@ import 'package:weather_app/current_block.dart';
 import 'package:weather_app/graphs.dart';
 import 'package:dio/dio.dart';
 import 'package:weather_app/forcast_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
       keyIsFirstLoaded = 'is_first_loaded';
       futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
       futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
+      getprefs();
     });
   }
 
@@ -125,6 +127,7 @@ class _HomePageState extends State<HomePage> {
                         } else {
                           curCity = cityController.text;
                           favcities.add(cityController.text);
+                          setprefs();
                         }
                       });
                       cityController.clear();
@@ -240,6 +243,17 @@ class _HomePageState extends State<HomePage> {
 
   }
   
+  setprefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('favs', favcities);
+  }
+
+  getprefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? temp = prefs.getStringList('favs');
+    favcities = temp!.toList();
+  }
+
   showDialogIfFirstLoaded(BuildContext context) async {
     showDialog(
       barrierDismissible: false,
