@@ -22,7 +22,7 @@ class CurrentBlock extends StatelessWidget {
                   const Text(style: TextStyle(fontSize: 20), ""),
                   Text(style: const TextStyle(fontSize: 45), "Current Temp: ${snapshot.data!.current.temp.toInt()}°F"), 
                   Text(style: const TextStyle(fontSize: 45), "Feels Like: ${snapshot.data!.current.feelslike.toInt()}°F"),
-                  Text(style: const TextStyle(fontSize: 45), "Current Conditions: ${snapshot.data!.weatherdesc.desc}"),
+                  Text(style: const TextStyle(fontSize: 40), "Current Conditions: ${snapshot.data!.weatherdesc.desc}"),
                   Text(style: const TextStyle(fontSize: 45), "Wind Speed: ${snapshot.data!.winddata.speed.toInt()} MPH"),
                   Text(style: const TextStyle(fontSize: 45), "Humidity: ${snapshot.data!.current.humidity.toInt()}%"),
                   Text(style: const TextStyle(fontSize: 45), "Pressure: ${snapshot.data!.current.pressure.toInt()} hPa"),
