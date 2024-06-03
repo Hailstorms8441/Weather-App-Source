@@ -16,14 +16,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool canopen = true;
   String keyIsFirstLoaded = '';
-  List<String> favcities = ["Portland,ME,US"];
+  List<String> favcities = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String apikey = '';
   double lat = 43.6610277;
   double lon = -70.2548596;
   String curCity = 'Portland,ME,US';
-  late Future<WeatherData> futureWeather;
-  late Future<ForcastData> futureForcast;
+  late Future<WeatherData> futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+  late Future<ForcastData> futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
   final cityController = TextEditingController();
   final apiController = TextEditingController();
 
@@ -32,8 +32,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     setState(() {
       keyIsFirstLoaded = 'is_first_loaded';
-      futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
-      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
+      getapikey();
+      // print(apikey);
+      // futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+      // futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
       getprefs();
     });
   }
@@ -124,6 +126,9 @@ class _HomePageState extends State<HomePage> {
                       setState(() {
                         if (favcities.contains(cityController.text)) {
 
+                        } else if(cityController.text.isEmpty) {
+                          favcities.add(curCity);
+                          setprefs();
                         } else {
                           curCity = cityController.text;
                           favcities.add(cityController.text);
@@ -177,6 +182,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const Divider(
                   color: Colors.black,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0, left: 20.0, right: 20.0, bottom: 10.0),
+                  child: FilledButton(
+                    onPressed: () {
+                      returncityval(cityController.text);
+                      setState(() {  
+                        favcities = [];
+                        setprefs();
+                      });
+                      cityController.clear();
+                    },
+                    style: FilledButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 166, 161),
+                      foregroundColor: Colors.black
+                    ),
+                    child: const Text('Clear Favourites'),
+                  )
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0, bottom: 15.0),
@@ -254,6 +277,26 @@ class _HomePageState extends State<HomePage> {
     favcities = temp!.toList();
   }
 
+  setapikey() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('api', apikey);
+  }
+
+  getapikey() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? apitemp = prefs.getString('api');
+    if (apitemp != null) {
+      apikey = apitemp.toString();
+      setState(() {
+        futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+        futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
+      });
+    } else {
+      futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
+      futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
+    }
+  }
+
   showDialogIfFirstLoaded(BuildContext context) async {
     showDialog(
       barrierDismissible: false,
@@ -291,6 +334,7 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     apikey = apiController.text;
                   });
+                  setapikey();
                   setState(() {
                     futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
                     futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
