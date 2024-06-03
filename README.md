@@ -4,7 +4,7 @@ A weather app that pulls data from Openweather and displays it with the Flutter 
 
 If you want to see the built code you can go to https://github.com/Hailstorm8441/Weather-App-Website/ and view it there (but it mostly looks like gibberish).
 
-# How to set up the app on your machine:
+# How to set up the app:
 
 Go to https://openweathermap.org/, create an acount, then go to pricing and click get api key under the free tier.
 
