@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   String apikey = '';
   double lat = 43.6610277;
   double lon = -70.2548596;
-  String curCity = 'Portland,ME,US';
+  String curCity = 'New York,NY,US';
   late Future<WeatherData> futureWeather = WeatherService().getData(lon.toString(), lat.toString(), apikey);
   late Future<ForcastData> futureForcast = ForcastService().getData(lon.toString(), lat.toString(), apikey);
   final cityController = TextEditingController();
